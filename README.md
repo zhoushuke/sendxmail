@@ -66,9 +66,8 @@ chmod 755 control
 :~$   {"status":0,"msg":"ok"}
 :~$   curl http://127.0.0.1:1925/api/mail -XPOST -d 'tos=iambocai@163.com,test@163.com&subject=Hello&content=<h1>你好</h1><br/><strong>world</strong>&format=html'
 :~$   {"status":0,"msg":"ok"}
-:~$   curl http://127.0.0.1:1925/api/mail -XPOST -d 'tos=iambocai@163.com,test@163.com&subject=Hello&content=yourname||zhoushuke^^yourage||18&format=template'
+:~$   curl 'http://127.0.0.1:6789/api/mail' -XPOST -d 'tos=xxx@163.com&subject=HM&content=event_time|2020-04-19-10:00:01,    host_ip|127.0.0.1,process_name|kestrel,process_pid|2000,process_env|vanke,event_msg|too many open files&format=template'
 :~$   {"status":0, "msg": "ok"}
-# content=yourname||zhoushuke^^yourage||18
 # ^^是记录的分隔符
 # ||是key-value的分隔符
 # 这两个操作符是在cfg.json配置文件中指定
