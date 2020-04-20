@@ -5,7 +5,9 @@
         "kvsplit": "||",
         "title": "Process Alert By Supervisor",
         "logo": "https://www.sensetime.com/images/logo.png",
-        "logolink": "https://www.sensetime.com"
+        "logolink": "https://www.sensetime.com",
+        "tpl": "/etc/template/mail.template.tmpl",
+        "layout": "layout"
     },
     "http": {
         "enabled": true,

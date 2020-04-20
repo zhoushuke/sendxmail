@@ -30,6 +30,8 @@ type StyleConfig struct {
 	Title string `json:"title"`
 	Logo string `json:"logo"`
 	LogoLink string `json:"logolink"`
+        Tpl      string `json:"tpl"`
+        Layout   string `json:"layout"`
 }
 
 type GlobalConfig struct {

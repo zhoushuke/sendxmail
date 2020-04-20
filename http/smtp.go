@@ -14,10 +14,10 @@ import (
 	"github.com/jordan-wright/email"
 )
 
-const (
-	TPL_FILE   = "template/mail.template.tmpl"
-	TPL_LAYOUT = "layout"
-)
+//const (
+//	TPL_FILE   = "template/mail.template.tmpl"
+//	TPL_LAYOUT = "layout"
+//)
 
 type HTMLBODY struct {
 	Title    string
@@ -52,13 +52,13 @@ func templateRender(body string) (buf bytes.Buffer, err error) {
 	}
 	log.Println("[INFO]", "body:", h)
 	// 模板渲染
-	t, err := template.ParseFiles(TPL_FILE)
+	t, err := template.ParseFiles(g.Config().Style.Tpl)
 	if err != nil {
 		log.Println("[ERROR]", "parse file err", err)
 		return buf, err
 	}
 
-	if err := t.ExecuteTemplate(&buf, TPL_LAYOUT, h); err != nil {
+	if err := t.ExecuteTemplate(&buf, g.Config().Style.Layout, h); err != nil {
 		log.Println("[ERROR]", "There was an error", err.Error())
 		return buf, err
 	}
