@@ -1,17 +1,17 @@
-falcon-mailer
+fork from github.com/iambocai/mailer
+在该基础之上增加能够使用自定义模板邮件
+sendxmail
 ====================
 
-falcon-sender 发送邮件到smtp服务器的接口实现，当然你也可以把它当做一个简单的httpmail接口使用也没问题:)
+sendxmail 发送邮件到smtp服务器的接口实现，当然你也可以把它当做一个简单的httpmail接口使用也没问题:)
 
 ##安装
 --------------------
 
 ```bash
-# set $GOPATH and $GOROOT
-mkdir -p $GOPATH/src/github.com/iambocai
-cd $GOPATH/src/github.com/iambocai
-git clone https://github.com/iambocai/mailer.git
-cd mailer
+
+git clone https://github.com/zhoushuke/sendxmail.git
+cd sendxmail
 go get ./...
 chmod 755 control
 ./control build
@@ -46,7 +46,7 @@ chmod 755 control
 |tos|是|	邮件收件人列表|多个用英文逗号,分割，分割符号可以在配置中修改|
 |subject|是|邮件主题|请使用utf8编码|
 |content|是|邮件正文|请使用utf8编码|
-|format|否|邮件正文的格式|默认为text，可设置为text或html|template
+|format|否|邮件正文的格式|默认为text，可设置为text或html或者template
 |from|否|发件人|不能含有非ASCII字符，不建议设置|
 |server|否|自定义SMTP服务器，格式如：smtp.exmail.qq.com:25|如要自定义则server，user，passwd必须同时设定，否则使用配置中的信息|
 |user|否|登陆邮箱使用的用户名，如abc@qq.com|如要自定义则server，user，passwd必须同时设定，否则使用配置中的信息|
@@ -69,7 +69,13 @@ chmod 755 control
 :~$   {"status":0,"msg":"ok"}
 :~$   curl http://127.0.0.1:1925/api/mail -XPOST -d 'tos=iambocai@163.com,test@163.com&subject=Hello&content=yourname||zhoushuke^^yourage||18&format=template'
 :~$   {"status":0, "msg": "ok"}
+# content=yourname||zhoushuke^^yourage||18
+# ^^是记录的分隔符
+# ||是key-value的分隔符
+# 这两个操作符是在cfg.json配置文件中指定
 ```
+**使用模板发送邮件效果如下**
+![](![](https://raw.githubusercontent.com/zhoushuke/BlogPhoto/master/githuboss/20200420111357.png))
 
 
 ####发送带附件的邮件
