@@ -1,8 +1,8 @@
 package http
 
 import (
-        "crypto/tls"
 	"bytes"
+	"crypto/tls"
 	"html/template"
 	"log"
 	"net"
@@ -11,12 +11,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/zhoushuke/sendxmail/g"
 	"github.com/jordan-wright/email"
+	"github.com/zhoushuke/sendxmail/g"
 )
 
 const (
-	ssl = true
+//	ssl = true
 //	TPL_FILE   = "template/mail.template.tmpl"
 //	TPL_LAYOUT = "layout"
 )
@@ -49,12 +49,12 @@ func templateRender(body string) (buf bytes.Buffer, err error) {
 	h.LogoLink = g.Config().Style.LogoLink
 	// 获取k-v body
 	for i := 0; i < _len; i++ {
-            if strings.Contains(b1[i], g.Config().Style.KvSplit) {
-		kv := strings.Split(b1[i], g.Config().Style.KvSplit)
-		h.Kvs[kv[0]] = kv[1]
-            } else {
-		h.Kvs[b1[i]] = "NotMatchError"
-	    }
+		if strings.Contains(b1[i], g.Config().Style.KvSplit) {
+			kv := strings.Split(b1[i], g.Config().Style.KvSplit)
+			h.Kvs[kv[0]] = kv[1]
+		} else {
+			h.Kvs[b1[i]] = "NotMatchError"
+		}
 	}
 	// 模板渲染
 	t, err := template.ParseFiles(g.Config().Style.Tpl)
@@ -209,15 +209,15 @@ func SendMailBySmtp(w http.ResponseWriter, r *http.Request, hasAttach bool) {
 
 	hp := strings.Split(server, ":")
 	auth := smtp.PlainAuth("", user, passwd, hp[0])
-	//暂时不支持TLS/StartTLS等加密认证
-	if ssl {
-		error := e.SendWithTLS(server, auth, &tls.Config{ServerName: hp[0]})
+	var err_m error
+	if g.Config.Smtp.Ssl {
+		err_m = e.SendWithTLS(server, auth, &tls.Config{ServerName: hp[0]})
 	} else {
-		error := e.Send(server, auth)
+		err_m = e.Send(server, auth)
 	}
-	if error != nil {
-		log.Println("[ERROR]", addr, e.From, e.To, e.Subject, error)
-		http.Error(w, error.Error(), http.StatusBadRequest)
+	if err_m != nil {
+		log.Println("[ERROR]", addr, e.From, e.To, e.Subject, err_m)
+		http.Error(w, err_m.Error(), http.StatusBadRequest)
 		return
 	}
 	log.Println("[INFO]", addr, e.From, e.To, e.Subject)

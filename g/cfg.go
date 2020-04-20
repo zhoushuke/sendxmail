@@ -18,6 +18,7 @@ type SmtpConfig struct {
 	Addr     string `json:"addr"`
 	User     string `json:"user"`
 	Pass     string `json:"pass"`
+	Ssl      bool   `json:"ssl"`
 	Spliter  string `json:"spliter"`
 	MaxBytes int64  `json:"maxbytes"`
 	Interval int    `json:"interval"`
@@ -26,17 +27,17 @@ type SmtpConfig struct {
 
 type StyleConfig struct {
 	FieldSplit string `json:"fieldsplit"`
-	KvSplit string `json:"kvsplit"`
-	Title string `json:"title"`
-	Logo string `json:"logo"`
-	LogoLink string `json:"logolink"`
-        Tpl      string `json:"tpl"`
-        Layout   string `json:"layout"`
+	KvSplit    string `json:"kvsplit"`
+	Title      string `json:"title"`
+	Logo       string `json:"logo"`
+	LogoLink   string `json:"logolink"`
+	Tpl        string `json:"tpl"`
+	Layout     string `json:"layout"`
 }
 
 type GlobalConfig struct {
 	Debug         bool            `json:"debug"`
-	Style         *StyleConfig	  `json:"style"`
+	Style         *StyleConfig    `json:"style"`
 	Http          *HttpConfig     `json:"http"`
 	Smtp          *SmtpConfig     `json:"smtp"`
 	IgnoreMetrics map[string]bool `json:"ignore"`
