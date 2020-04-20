@@ -45,7 +45,7 @@ func templateRender(body string) (buf bytes.Buffer, err error) {
 	h.Title = g.Config().Style.Title
 	h.Logo = g.Config().Style.Logo
 	h.LogoLink = g.Config().Style.LogoLink
-        log.Println("[INFO]", "body:" b1, body)
+        log.Println("[INFO]", "body:",b1, body)
 	// 获取k-v body
 	for i := 0; i < _len; i++ {
 		kv := strings.Split(b1[i], g.Config().Style.KvSplit)
