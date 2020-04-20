@@ -45,12 +45,13 @@ func templateRender(body string) (buf bytes.Buffer, err error) {
 	h.Title = g.Config().Style.Title
 	h.Logo = g.Config().Style.Logo
 	h.LogoLink = g.Config().Style.LogoLink
+        log.Println("[INFO]", "body:" b1, body)
 	// 获取k-v body
 	for i := 0; i < _len; i++ {
 		kv := strings.Split(b1[i], g.Config().Style.KvSplit)
 		h.Kvs[kv[0]] = kv[1]
 	}
-	log.Println("[INFO]", "body:", h)
+	log.Println("[INFO]", "h", h)
 	// 模板渲染
 	t, err := template.ParseFiles(g.Config().Style.Tpl)
 	if err != nil {
