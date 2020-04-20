@@ -1,6 +1,7 @@
 package http
 
 import (
+        "crypto/tls"
 	"bytes"
 	"html/template"
 	"log"
@@ -14,10 +15,11 @@ import (
 	"github.com/jordan-wright/email"
 )
 
-//const (
+const (
+	ssl = true
 //	TPL_FILE   = "template/mail.template.tmpl"
 //	TPL_LAYOUT = "layout"
-//)
+)
 
 type HTMLBODY struct {
 	Title    string
@@ -208,7 +210,11 @@ func SendMailBySmtp(w http.ResponseWriter, r *http.Request, hasAttach bool) {
 	hp := strings.Split(server, ":")
 	auth := smtp.PlainAuth("", user, passwd, hp[0])
 	//暂时不支持TLS/StartTLS等加密认证
-	error := e.Send(server, auth)
+	if ssl {
+		error := e.SendWithTLS(server, auth, &tls.Config{ServerName: hp[0]})
+	} else {
+		error := e.Send(server, auth)
+	}
 	if error != nil {
 		log.Println("[ERROR]", addr, e.From, e.To, e.Subject, error)
 		http.Error(w, error.Error(), http.StatusBadRequest)

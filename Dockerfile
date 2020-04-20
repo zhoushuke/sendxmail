@@ -11,6 +11,6 @@ COPY sendxmail /usr/local/bin/sendxmail
 RUN mkdir -p /etc/sendxmail && chmod +x /usr/local/bin/sendxmail
 
 COPY cfg.json /etc/sendxmail/cfg.json
-COPY template /etc/
+COPY template /etc/sendxmail/template
 
 ENTRYPOINT ["sendxmail", "-c", "/etc/sendxmail/cfg.json"]
