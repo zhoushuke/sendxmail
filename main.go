@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-        "github.com/zhoushuke/sendxmail/g"
+	"github.com/zhoushuke/sendxmail/g"
 	"github.com/zhoushuke/sendxmail/http"
 )
 

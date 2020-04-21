@@ -1,5 +1,5 @@
 {
-    "debug": true,
+    "debug": false,
     "style": {
         "fieldsplit": "^^",
         "kvsplit": "||",
@@ -12,13 +12,13 @@
     "http": {
         "enabled": true,
         "listen": ":1925",
-        "whitelist": "127.0.0.1,192.168.90.0/24"
+        "whitelist": "127.0.0.1,0.0.0.0/24"
     },
     "smtp": {
         "addr": "smtp.163.com:25",
         "user": "user@163.com",
         "pass": "password",
-        "ssl": true,
+        "ssl": false,
         "spliter": ",",
         "maxbytes": 104857600,
         "interval": 60,

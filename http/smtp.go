@@ -3,6 +3,7 @@ package http
 import (
 	"bytes"
 	"crypto/tls"
+	"errors"
 	"html/template"
 	"log"
 	"net"
@@ -26,6 +27,32 @@ type HTMLBODY struct {
 	Logo     string
 	LogoLink string
 	Kvs      map[string]string
+}
+
+type loginAuth struct {
+	username, password string
+}
+
+func LoginAuth(username, password string) smtp.Auth {
+	return &loginAuth{username, password}
+}
+
+func (a *loginAuth) Start(server *smtp.ServerInfo) (string, []byte, error) {
+	return "LOGIN", []byte(a.username), nil
+}
+
+func (a *loginAuth) Next(fromServer []byte, more bool) ([]byte, error) {
+	if more {
+		switch string(fromServer) {
+		case "Username:":
+			return []byte(a.username), nil
+		case "Password:":
+			return []byte(a.password), nil
+		default:
+			return nil, errors.New("Unkown fromServer")
+		}
+	}
+	return nil, nil
 }
 
 func configSmtpRoutes() {
@@ -208,10 +235,13 @@ func SendMailBySmtp(w http.ResponseWriter, r *http.Request, hasAttach bool) {
 	}
 
 	hp := strings.Split(server, ":")
-	auth := smtp.PlainAuth("", user, passwd, hp[0])
+	// 不支持plain auth认证
+	// auth := smtp.PlainAuth("", user, passwd, hp[0])
+	auth := LoginAuth(user, passwd)
 	var err_m error
-	if g.Config.Smtp.Ssl {
-		err_m = e.SendWithTLS(server, auth, &tls.Config{ServerName: hp[0]})
+	// ssl 默认不使用
+	if g.Config().Smtp.Ssl {
+		err_m = e.SendWithTLS(server, auth, &tls.Config{InsecureSkipVerify: true, ServerName: hp[0]})
 	} else {
 		err_m = e.Send(server, auth)
 	}
