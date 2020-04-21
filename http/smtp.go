@@ -16,11 +16,11 @@ import (
 	"github.com/zhoushuke/sendxmail/g"
 )
 
-const (
+// const (
 //	ssl = true
 //	TPL_FILE   = "template/mail.template.tmpl"
 //	TPL_LAYOUT = "layout"
-)
+// )
 
 type HTMLBODY struct {
 	Title    string
