@@ -1,8 +1,9 @@
-sendxmail
-====================
+sendxmail V2.0
 fork from github.com/iambocai/mailer
-在该基础之上增加能够使用自定义模板邮件 V2.0
-sendxmail 发送邮件到smtp服务器的接口实现，当然你也可以把它当做一个简单的httpmail接口使用也没问题:)
+====================
+在该基础之上增加能够使用自定义模板邮件
+sendxmail 发送邮件到smtp服务器的接口实现
+当然你也可以把它当做一个简单的httpmail接口使用也没问题:)
 
 ##安装
 --------------------
@@ -73,7 +74,7 @@ chmod 755 control
 # 这两个操作符是在cfg.json配置文件中指定
 ```
 **使用模板发送邮件效果如下**
-![](https://raw.githubusercontent.com/zhoushuke/BlogPhoto/master/githuboss/20200420111357.png)
+![](https://raw.githubusercontent.com/zhoushuke/BlogPhoto/master/githuboss/20200421215937.png)
 
 
 ####发送带附件的邮件
@@ -161,7 +162,3 @@ print urllib2.urlopen(request).read()
 4. 请求返回success，但收件方未收到信
 
 	市面上常见的邮箱产品都有严格的反垃圾邮件规则设置，请检查您的邮件是否被标记为垃圾邮件，以及您的账号是否已被封禁。
-	
-5. 支持TLS/SSL么？
-
-    暂时不支持，如有需要您可以参照[这篇文章](http://www.oschina.net/code/snippet_166520_34694)
