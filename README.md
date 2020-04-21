@@ -1,7 +1,7 @@
 sendxmail
 ====================
 fork from github.com/iambocai/mailer
-在该基础之上增加能够使用自定义模板邮件
+在该基础之上增加能够使用自定义模板邮件 V2.0
 sendxmail 发送邮件到smtp服务器的接口实现，当然你也可以把它当做一个简单的httpmail接口使用也没问题:)
 
 ##安装
